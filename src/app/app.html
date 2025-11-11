@@ -1,0 +1,52 @@
+<div class="container">
+  <header>
+    <h1>{{ title() }}</h1>
+    <p class="subtitle">A zoneless Angular 20 application with search and table</p>
+  </header>
+
+  <div class="search-section">
+    <input 
+      type="text" 
+      class="search-input" 
+      placeholder="Search by name, email, or department..." 
+      [value]="searchQuery()"
+      (input)="onSearchInputChange($event)"
+      data-testid="search-input"
+    />
+    <button 
+      class="search-button" 
+      (click)="onSearch()"
+      data-testid="search-button"
+    >
+      Search
+    </button>
+  </div>
+
+  <div class="table-section">
+    <h2>Users</h2>
+    <table class="users-table" data-testid="users-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Department</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of filteredUsers(); track user.id) {
+          <tr data-testid="user-row">
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.department }}</td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="4" class="no-results">No users found</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
